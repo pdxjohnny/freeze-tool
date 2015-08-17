@@ -16,7 +16,7 @@
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/easysock",
-			"Rev": "511071ee840b0f5b1642f5e694fd01b76e63a71c"
+			"Rev": "b50c1abf18a68311a9038e1f33e99f42751cd4c7"
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/microsocket/client",
