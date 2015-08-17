@@ -31,4 +31,4 @@ docker run --rm -v `pwd`:/go/src/github.com/${GITHUB_USERNAME}/${PRODUCT_NAME} "
 # Build the docker image
 docker build -t "${GITHUB_USERNAME}/${PRODUCT_NAME}" .
 echo "Built ${GITHUB_USERNAME}/${PRODUCT_NAME}"
-echo "docker run --rm -ti ${GITHUB_USERNAME}/${PRODUCT_NAME}"
+echo "docker run --rm -ti -p 7777:7777 ${GITHUB_USERNAME}/${PRODUCT_NAME}"
