@@ -1,5 +1,5 @@
 api.Devices = function (devices) {
-  updateDeviceList(devices["Devices"], devices["host"]);
+  updateDeviceList(devices["Devices"], devices["Host"]);
 }
 
 $(function() {
