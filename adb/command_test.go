@@ -5,9 +5,9 @@ import (
 )
 
 func TestCommand(t *testing.T) {
-  args := []string{"version"}
-  _, err := Command(args...)
-  if err != nil {
-    panic("Error getting adb version")
-  }
+	args := []string{"version"}
+	_, err := Command(args...)
+	if err != nil {
+		panic("Error getting adb version")
+	}
 }
