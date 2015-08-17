@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-PRODUCT_NAME="default_app_name"
-GITHUB_USERNAME="default_username"
+PRODUCT_NAME="freeze-tool"
+GITHUB_USERNAME="pdxjohnny"
 BUILD_DIR="./"
 
 if [ -z "$1" ]; then

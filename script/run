@@ -1,0 +1,7 @@
+#!/bin/bash
+# Runs the docker image
+set -e
+
+PRODUCT_NAME="freeze-tool"
+GITHUB_USERNAME="pdxjohnny"
+docker run --rm -ti ${GITHUB_USERNAME}/${PRODUCT_NAME}

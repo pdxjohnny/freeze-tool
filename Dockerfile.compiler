@@ -6,10 +6,10 @@ RUN go get github.com/aktau/github-release
 RUN go get github.com/tools/godep
 RUN go get golang.org/x/tools/cmd/cover
 
-ENV GOPATH /go/src/github.com/default_username/default_app_name/Godeps/_workspace:/go
-ENV MACHINE_BINARY /go/src/github.com/default_username/default_app_name/default_app_name
+ENV GOPATH /go/src/github.com/pdxjohnny/freeze-tool/Godeps/_workspace:/go
+ENV MACHINE_BINARY /go/src/github.com/pdxjohnny/freeze-tool/freeze-tool
 ENV USER root
 
-WORKDIR /go/src/github.com/default_username/default_app_name
+WORKDIR /go/src/github.com/pdxjohnny/freeze-tool
 
-ADD . /go/src/github.com/default_username/default_app_name
+ADD . /go/src/github.com/pdxjohnny/freeze-tool
