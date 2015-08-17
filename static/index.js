@@ -1,17 +1,22 @@
-var Albom = function Albom(data) {
-  var div = document.createElement("div");
+var device_list_div = document.getElementById("devices");
 
-  for(var i in this) {
-    if(typeof this[i] === "function") {
-      div[i] = this[i].bind(div);
-    } else {
-      div[i] = this[i];
+api.Devices = function (devices) {
+  var deviceList = devices["Devices"];
+  updateDeviceList(deviceList);
+}
+
+$(function() {
+  api.send({"Method": "SendDevices"});
+})
+
+function updateDeviceList(deviceList) {
+  for (var device_id in deviceList) {
+    var name = deviceList[device_id];
+    var device_div = document.getElementById(name);
+    if (device_div == null) {
+      device_div = new Device(name);
+      device_list_div.appendChild(device_div);
     }
+    device_div.device = name;
   }
-
-  return div;
-};
-
-Albom.prototype.open = function open() {
-  alert(this.getAttribute("data-id"));
-};
+}

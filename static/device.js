@@ -1,7 +1,8 @@
-var Device = function Device(data) {
+var Device = function Device(name) {
   var div = document.createElement("div");
   var column_one = document.createElement("div");
   var column_two = document.createElement("div");
+  div.id = name;
   div.className = "row";
   column_one.className = "col-md-8";
   column_two.className = "col-md-4";
@@ -40,6 +41,9 @@ var Device = function Device(data) {
     }
   });
 
+  // Set the name and status
+  div.device = name;
+  div.status = "OK";
   return div;
 };
 
