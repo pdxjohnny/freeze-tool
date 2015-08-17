@@ -2,7 +2,10 @@ package connected
 
 import (
 	"encoding/json"
+	"strings"
+	"path/filepath"
 
+	"github.com/andreaskoch/go-fswatch"
 	"github.com/pdxjohnny/microsocket/service"
 
 	"github.com/pdxjohnny/freeze-tool/adb"
@@ -18,6 +21,12 @@ func NewConnected() *Connected {
 	connected := Connected{Service: inner}
 	connected.Caller = &connected
 	return &connected
+}
+
+func (connected *Connected) Run() error {
+	go connected.WatchDeviceChange()
+	connected.Read()
+	return nil
 }
 
 func (connected *Connected) SendDevices(raw_message []byte) {
@@ -38,4 +47,27 @@ func (connected *Connected) SendDevices(raw_message []byte) {
 	}
 	// Dump it to clients
 	connected.Write(messageBytes)
+}
+
+func (connected *Connected) WatchDeviceChange() {
+	recurse := true // include all sub directories
+	skipDotFilesAndFolders := func(path string) bool {
+		return strings.HasPrefix(filepath.Base(path), ".")
+	}
+	checkIntervalInSeconds := 1
+
+	folderWatcher := fswatch.NewFolderWatcher(
+		"/dev/bus/usb",
+		recurse,
+		skipDotFilesAndFolders,
+		checkIntervalInSeconds,
+	)
+	folderWatcher.Start()
+
+	for folderWatcher.IsRunning() {
+		select {
+		case <-folderWatcher.Modified():
+			connected.SendDevices(nil)
+		}
+	}
 }

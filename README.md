@@ -16,6 +16,12 @@ cd static
 bower install
 ```
 
+Also make sure to install go dependencies
+
+```bash
+godep restore
+```
+
 ```bash
 ./script/build
 ```

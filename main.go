@@ -38,7 +38,7 @@ func Connected() error {
 	if err != nil {
 		log.Println(err)
 	}
-	connectedService.Read()
+	connectedService.Run()
 	return nil
 }
 

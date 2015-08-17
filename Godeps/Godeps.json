@@ -6,12 +6,29 @@
 	],
 	"Deps": [
 		{
+			"ImportPath": "github.com/andreaskoch/go-fswatch",
+			"Comment": "v1.0.0-1-gecea476",
+			"Rev": "ecea47604a702853c881a7dd161fead47ce8467f"
+		},
+		{
 			"ImportPath": "github.com/gorilla/websocket",
 			"Rev": "6eb6ad425a89d9da7a5549bc6da8f79ba5c17844"
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/easysock",
 			"Rev": "511071ee840b0f5b1642f5e694fd01b76e63a71c"
+		},
+		{
+			"ImportPath": "github.com/pdxjohnny/microsocket/client",
+			"Rev": "b8236cf6a34fd3a0714698b1e1e116b89b2b03ad"
+		},
+		{
+			"ImportPath": "github.com/pdxjohnny/microsocket/random",
+			"Rev": "b8236cf6a34fd3a0714698b1e1e116b89b2b03ad"
+		},
+		{
+			"ImportPath": "github.com/pdxjohnny/microsocket/service",
+			"Rev": "b8236cf6a34fd3a0714698b1e1e116b89b2b03ad"
 		}
 	]
 }
