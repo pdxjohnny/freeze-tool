@@ -1,3 +1,5 @@
 build/
 
+bower_components/
+
 freeze-tool_*

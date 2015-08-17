@@ -1,0 +1,20 @@
+{
+  "name": "freeze-tool",
+  "version": "0.0.0",
+  "authors": [
+    "John Andersen <johnandersenpdx@gmail.com>"
+  ],
+  "description": "This project provides notifications when a android device freezes or locks up.",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5"
+  }
+}

@@ -9,6 +9,13 @@ binary to the busybox image to create an extremely small final image
 Building
 ---
 
+Make sure to run bower install before building the docker image
+
+```bash
+cd static
+bower install
+```
+
 ```bash
 ./script/build
 ```
