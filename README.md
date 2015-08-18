@@ -31,7 +31,7 @@ Running
 
 ```bash
 ./freeze-tool_linux-amd64
-docker run --rm -ti pdxjohnny/freeze-tool
+docker run --rm -ti --privileged -v /dev/bus/usb/:/dev/bus/usb -p 7777:7777 pdxjohnny/freeze-tool
 ```
 
 Changing The Name
