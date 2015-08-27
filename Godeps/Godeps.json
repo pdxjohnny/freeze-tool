@@ -6,6 +6,11 @@
 	],
 	"Deps": [
 		{
+			"ImportPath": "github.com/BurntSushi/toml",
+			"Comment": "v0.1.0-21-g056c9bc",
+			"Rev": "056c9bc7be7190eaa7715723883caffa5f8fa3e4"
+		},
+		{
 			"ImportPath": "github.com/andreaskoch/go-fswatch",
 			"Comment": "v1.0.0-1-gecea476",
 			"Rev": "ecea47604a702853c881a7dd161fead47ce8467f"
@@ -13,6 +18,24 @@
 		{
 			"ImportPath": "github.com/gorilla/websocket",
 			"Rev": "6eb6ad425a89d9da7a5549bc6da8f79ba5c17844"
+		},
+		{
+			"ImportPath": "github.com/kr/pretty",
+			"Comment": "go.weekly.2011-12-22-27-ge6ac2fc",
+			"Rev": "e6ac2fc51e89a3249e82157fa0bb7a18ef9dd5bb"
+		},
+		{
+			"ImportPath": "github.com/kr/text",
+			"Rev": "e373e137fafd8abd480af49182dea0513914adb4"
+		},
+		{
+			"ImportPath": "github.com/magiconair/properties",
+			"Comment": "v1.5.5",
+			"Rev": "337395e44efb4affc8bf11971e22acbd4e27a32d"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/mapstructure",
+			"Rev": "281073eb9eb092240d33ef253c404f1cca550309"
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/easysock",
@@ -29,6 +52,26 @@
 		{
 			"ImportPath": "github.com/pdxjohnny/microsocket/service",
 			"Rev": "b8236cf6a34fd3a0714698b1e1e116b89b2b03ad"
+		},
+		{
+			"ImportPath": "github.com/spf13/cast",
+			"Rev": "ee815aaf958c707ad07547cd62150d973710f747"
+		},
+		{
+			"ImportPath": "github.com/spf13/jwalterweatherman",
+			"Rev": "3d60171a64319ef63c78bd45bd60e6eab1e75f8b"
+		},
+		{
+			"ImportPath": "github.com/spf13/pflag",
+			"Rev": "8e7dc108ab3a1ab6ce6d922bbaff5657b88e8e49"
+		},
+		{
+			"ImportPath": "github.com/spf13/viper",
+			"Rev": "3c0ff861e3d9906ecc4ebfb7e41557d44d3e277b"
+		},
+		{
+			"ImportPath": "gopkg.in/yaml.v2",
+			"Rev": "7ad95dd0798a40da1ccdff6dff35fd177b5edf40"
 		}
 	]
 }
