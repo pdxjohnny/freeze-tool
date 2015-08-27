@@ -3,6 +3,7 @@ var make_api = function () {
   this.messages = [];
   this.sender = false;
   this.ws = false;
+  this.name = false;
   // Set the default server
   this.change_server(location.origin.split("//")[1]);
   // Handlers for messages
@@ -75,6 +76,10 @@ make_api.prototype.startsender = function () {
 
 make_api.prototype.WorkerConnected = function () {
   this.connected = true;
+}
+
+make_api.prototype.MicroSocketName = function (data) {
+  this.name = data["Name"];
 }
 
 api = new make_api();

@@ -2,7 +2,6 @@ package connected
 
 import (
 	"encoding/json"
-	"os"
 	"strings"
 	"path/filepath"
 
@@ -14,7 +13,6 @@ import (
 
 type Connected struct {
 	*service.Service
-	Hostname string
 }
 
 func NewConnected() *Connected {
@@ -22,13 +20,12 @@ func NewConnected() *Connected {
 	inner := service.NewService()
 	connected := Connected{Service: inner}
 	connected.Caller = &connected
-	connected.Hostname, _ = os.Hostname()
 	return &connected
 }
 
 func (connected *Connected) Run() error {
 	go connected.WatchDeviceChange()
-	connected.SendDevices(nil)
+	connected.WhenReady(connected.SendDevices, nil)
 	connected.Read()
 	return nil
 }
@@ -43,7 +40,7 @@ func (connected *Connected) SendDevices(raw_message []byte) {
 	message := map[string]interface{}{
 		"Method":  "Devices",
 		"Devices": deviceList,
-		"Host": connected.Hostname,
+		"Name": connected.ClientId,
 	}
 	// Turn the message into json bytes
 	messageBytes, err := json.Marshal(message)

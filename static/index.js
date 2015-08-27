@@ -1,10 +1,18 @@
-api.Devices = function (devices) {
-  updateDeviceList(devices["Devices"], devices["Host"]);
+api.Devices = function (data) {
+  updateDeviceList(data["Devices"], data["Name"]);
+}
+
+api.Closed = function (data) {
+  updateDeviceList([], data["Name"]);
 }
 
 $(function() {
-  api.send({"Method": "SendDevices"});
+  getDevices();
 })
+
+function getDevices() {
+  api.send({"Method": "SendDevices"});
+}
 
 function updateDeviceList(deviceList, host) {
   var device_list_div = hostDevicesDiv(host);
