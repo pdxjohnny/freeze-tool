@@ -28,6 +28,7 @@ func NewConnected() *Connected {
 
 func (connected *Connected) Run() error {
 	go connected.WatchDeviceChange()
+	connected.SendDevices(nil)
 	connected.Read()
 	return nil
 }

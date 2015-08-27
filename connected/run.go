@@ -12,6 +12,7 @@ func Run() error {
 		viper.GetString("host"),
 		viper.GetInt("port"),
 	)
+	log.Println("Connecting to", wsUrl)
 	connected := NewConnected()
 	err := connected.Connect(wsUrl)
 	if err != nil {

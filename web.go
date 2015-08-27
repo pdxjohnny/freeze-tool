@@ -15,7 +15,7 @@ func Web() error {
 	http.Handle("/", fs)
 	http.HandleFunc("/ws", easysock.ServeWs)
 	port := fmt.Sprintf(":%d", viper.GetInt("port"))
-	log.Println(port)
+	log.Println("Serving on", port)
 	err := http.ListenAndServe(port, nil)
 	if err != nil {
 		log.Println(err)

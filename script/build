@@ -31,5 +31,4 @@ docker run --rm -v `pwd`:/go/src/github.com/${GITHUB_USERNAME}/${PRODUCT_NAME} "
 # Build the docker image
 docker build -t "${GITHUB_USERNAME}/${PRODUCT_NAME}" .
 echo "Built ${GITHUB_USERNAME}/${PRODUCT_NAME}"
-echo "docker run --rm -ti --privileged -v /dev/bus/usb/:/dev/bus/usb -p 7777:7777 ${GITHUB_USERNAME}/${PRODUCT_NAME}"
-
+echo "docker-compose up"

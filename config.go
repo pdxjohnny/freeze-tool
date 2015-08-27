@@ -58,6 +58,6 @@ func ConfigBindFlags(cmd *cobra.Command) {
 }
 
 func ConfigEnv() {
-	viper.SetEnvPrefix("freeze_tool")
+	viper.SetEnvPrefix("freezetool")
 	viper.AutomaticEnv()
 }

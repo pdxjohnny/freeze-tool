@@ -31,7 +31,15 @@ Running
 
 ```bash
 ./freeze-tool_linux-amd64
-docker run --rm -ti --privileged -v /dev/bus/usb/:/dev/bus/usb -p 7777:7777 pdxjohnny/freeze-tool
+```
+
+Docker
+---
+
+ADB server must not be running on the host!!!
+
+```bash
+docker-compose up
 ```
 
 Changing The Name
