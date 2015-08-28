@@ -64,6 +64,9 @@ var Device = function Device(name) {
 
 Device.prototype.update = function (object) {
   for (var prop in object) {
+    if (prop.toLowerCase() === "host") {
+      object[prop] = hosts.get(object[prop]);
+    }
     this[prop.toLowerCase()] = object[prop];
   }
 }

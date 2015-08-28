@@ -3,6 +3,7 @@ package connected
 import (
 	"encoding/json"
 	"log"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -14,6 +15,7 @@ import (
 
 type Connected struct {
 	*service.Service
+	Hostname string
 }
 
 func NewConnected() *Connected {
@@ -21,6 +23,7 @@ func NewConnected() *Connected {
 	inner := service.NewService()
 	connected := Connected{Service: inner}
 	connected.Caller = &connected
+	connected.Hostname, _ = os.Hostname()
 	return &connected
 }
 
@@ -30,9 +33,27 @@ func (connected *Connected) Run() error {
 	<-connected.Ready
 	log.Println("Sending devices...")
 	connected.SendDevices(nil)
+	log.Println("Sending hostname...")
+	connected.SendHostname(nil)
 	log.Println("Watching for change")
 	connected.WatchDeviceChange()
 	return nil
+}
+
+func (connected *Connected) SendHostname(raw_message []byte) {
+	// The message containing devices connect to the host
+	message := map[string]interface{}{
+		"Method": "Hostname",
+		"Name":   connected.ClientId,
+		"Host":   connected.Hostname,
+	}
+	// Turn the message into json bytes
+	messageBytes, err := json.Marshal(message)
+	if err != nil {
+		return
+	}
+	// Dump it to clients
+	connected.Write(messageBytes)
 }
 
 func (connected *Connected) SendDevices(raw_message []byte) {
@@ -41,6 +62,7 @@ func (connected *Connected) SendDevices(raw_message []byte) {
 	if err != nil {
 		return
 	}
+	log.Println("Devices changed", deviceList)
 	// Make the status for each device
 	deviceStatus := make(map[string]interface{})
 	for _, item := range deviceList {

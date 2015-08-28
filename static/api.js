@@ -49,14 +49,16 @@ make_api.prototype.send = function (data) {
 
 make_api.prototype.sendall = function (data) {
   if (this.connected) {
-    for (var message = 0; message < this.messages.length; message++) {
+    var numToSend = this.messages.length;
+    for (var message = 0; message < numToSend; message++) {
+      // Allways send the first message
       if (this.sender) {
-        this.async("send", this.messages[message])
+        this.async("send", this.messages[0])
       } else {
-        this.messages[message] = JSON.stringify(this.messages[message]);
-        this.ws.send(this.messages[message]);
+        this.messages[0] = JSON.stringify(this.messages[0]);
+        this.ws.send(this.messages[0]);
       }
-      this.messages.pop()
+      this.messages.shift();
     }
   }
 }

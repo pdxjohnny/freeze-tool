@@ -8,6 +8,11 @@ api.DeviceStatus = function (data) {
   updateDeviceDiv(data);
 }
 
+api.Hostname = function (data) {
+  // Updates the status of a single device
+  hosts.set(data["Name"], data["Host"]);
+}
+
 api.Closed = function (data) {
   // Mark all of the devices for this host as disconnected
   updateDeviceList({}, data["Name"]);
@@ -15,16 +20,26 @@ api.Closed = function (data) {
 
 // References to all of the divs that respresent devices
 var deviceDivs = {};
+// Map MicroSocket client names to hostnames
+var hosts = new HostNames();
 
 // When the page loads
 $(function () {
   getDevices();
+  getHostnames();
 })
 
 // Request updated device list
 function getDevices() {
   api.send({
     "Method": "SendDevices"
+  });
+}
+
+// Request hostnames of services
+function getHostnames() {
+  api.send({
+    "Method": "SendHostname"
   });
 }
 
@@ -40,7 +55,7 @@ function updateDeviceList(deviceList, host) {
   for (var div in deviceDivs) {
     // If the divs host is the same as the host that
     // just sent the message
-    if (deviceDivs[div].host === host &&
+    if (deviceDivs[div].host === hosts.get(host) &&
       typeof deviceList[div] === "undefined") {
       // Change the status to the disconnected message
       deviceDivs[div].status = "Disconnected";
