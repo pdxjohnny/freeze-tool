@@ -1,6 +1,6 @@
 {
 	"ImportPath": "github.com/pdxjohnny/freeze-tool",
-	"GoVersion": "go1.4.2",
+	"GoVersion": "go1.5",
 	"Packages": [
 		"./..."
 	],
@@ -48,19 +48,27 @@
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/easysock",
-			"Rev": "b50c1abf18a68311a9038e1f33e99f42751cd4c7"
+			"Rev": "d02a3c6e5390ba2a31bc7ba552ac33b2fb9d0897"
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/microsocket/client",
-			"Rev": "b8236cf6a34fd3a0714698b1e1e116b89b2b03ad"
+			"Rev": "d46dd61d21595200ac43e89bc7771f3105b80c1b"
+		},
+		{
+			"ImportPath": "github.com/pdxjohnny/microsocket/config",
+			"Rev": "d46dd61d21595200ac43e89bc7771f3105b80c1b"
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/microsocket/random",
-			"Rev": "b8236cf6a34fd3a0714698b1e1e116b89b2b03ad"
+			"Rev": "d46dd61d21595200ac43e89bc7771f3105b80c1b"
+		},
+		{
+			"ImportPath": "github.com/pdxjohnny/microsocket/server",
+			"Rev": "d46dd61d21595200ac43e89bc7771f3105b80c1b"
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/microsocket/service",
-			"Rev": "b8236cf6a34fd3a0714698b1e1e116b89b2b03ad"
+			"Rev": "d46dd61d21595200ac43e89bc7771f3105b80c1b"
 		},
 		{
 			"ImportPath": "github.com/russross/blackfriday",
