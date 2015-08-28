@@ -2,8 +2,9 @@ package connected
 
 import (
 	"encoding/json"
-	"strings"
+	"log"
 	"path/filepath"
+	"strings"
 
 	"github.com/andreaskoch/go-fswatch"
 	"github.com/pdxjohnny/microsocket/service"
@@ -24,9 +25,13 @@ func NewConnected() *Connected {
 }
 
 func (connected *Connected) Run() error {
-	go connected.WatchDeviceChange()
-	connected.WhenReady(connected.SendDevices, nil)
-	connected.Read()
+	go connected.Read()
+	log.Println("Waiting for ready")
+	<-connected.Ready
+	log.Println("Sending devices...")
+	connected.SendDevices(nil)
+	log.Println("Watching for change")
+	connected.WatchDeviceChange()
 	return nil
 }
 
@@ -36,11 +41,21 @@ func (connected *Connected) SendDevices(raw_message []byte) {
 	if err != nil {
 		return
 	}
+	// Make the status for each device
+	deviceStatus := make(map[string]interface{})
+	for _, item := range deviceList {
+		currentDevice := map[string]interface{}{
+			"Device": item,
+			"Host":   connected.ClientId,
+			"Status": "Connected",
+		}
+		deviceStatus[item] = &currentDevice
+	}
 	// The message containing devices connect to the host
 	message := map[string]interface{}{
 		"Method":  "Devices",
-		"Devices": deviceList,
-		"Name": connected.ClientId,
+		"Devices": deviceStatus,
+		"Name":    connected.ClientId,
 	}
 	// Turn the message into json bytes
 	messageBytes, err := json.Marshal(message)
@@ -52,7 +67,7 @@ func (connected *Connected) SendDevices(raw_message []byte) {
 }
 
 func (connected *Connected) WatchDeviceChange() {
-	recurse := true // include all sub directories
+	recurse := true
 	skipDotFilesAndFolders := func(path string) bool {
 		return strings.HasPrefix(filepath.Base(path), ".")
 	}
