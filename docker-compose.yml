@@ -1,10 +1,7 @@
 connected:
   image: pdxjohnny/freeze-tool
   command: /freeze-tool/run connected
-  volumes:
-    - "/dev/bus/usb:/dev/bus/usb"
   privileged: true
-  restart: always
   environment:
     - FREEZETOOL_HOST=web
   links:
@@ -15,4 +12,3 @@ web:
   command: /freeze-tool/run web
   ports:
     - "7777:7777"
-  restart: always

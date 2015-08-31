@@ -42,6 +42,11 @@ ADB server must not be running on the host!!!
 docker-compose up
 ```
 
+To run just a node
+```bash
+docker-compose -f docker-compose-node.yml run connected
+```
+
 Changing The Name
 ---
 

@@ -1,9 +1,18 @@
 #!/bin/bash
-set -e
+# set -e
 
 PRODUCT_NAME="freeze-tool"
 GITHUB_USERNAME="pdxjohnny"
 BUILD_DIR="./"
+
+in_path () {
+  IS_IN_PATH=1
+  if [ -n "$1" ]
+  then
+    command -v $1 >/dev/null 2>&1 || { IS_IN_PATH=0; }
+  fi
+  return ${IS_IN_PATH}
+}
 
 if [ -z "$1" ]; then
     OS_PLATFORM_ARG=(-os="darwin linux windows")
@@ -26,6 +35,11 @@ fi
 mkdir -p ${BUILD_DIR}
 rm -f ${BUILD_DIR}${PRODUCT_NAME}*
 rm -rf Godeps/_workspace/pkg
+# Restore godeps
+in_path godep
+if [[ $? == 1 ]]; then
+  GOPATH="${PWD}/Godeps/_workspace" godep restore
+fi
 docker run --rm -v `pwd`:/go/src/github.com/${GITHUB_USERNAME}/${PRODUCT_NAME} "${PRODUCT_NAME}_compiler" gox "${OS_PLATFORM_ARG[@]}" "${OS_ARCH_ARG[@]}" -output="${BUILD_DIR}${PRODUCT_NAME}_{{.OS}}-{{.Arch}}" -ldflags="-w"
 
 # Build the docker image
