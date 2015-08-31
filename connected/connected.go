@@ -1,7 +1,6 @@
 package connected
 
 import (
-	"encoding/json"
 	"log"
 	"os"
 	"path/filepath"
@@ -42,18 +41,11 @@ func (connected *Connected) Run() error {
 
 func (connected *Connected) SendHostname(raw_message []byte) {
 	// The message containing devices connect to the host
-	message := map[string]interface{}{
+	connected.SendInterface(map[string]interface{}{
 		"Method": "Hostname",
 		"Name":   connected.ClientId,
 		"Host":   connected.Hostname,
-	}
-	// Turn the message into json bytes
-	messageBytes, err := json.Marshal(message)
-	if err != nil {
-		return
-	}
-	// Dump it to clients
-	connected.Write(messageBytes)
+	})
 }
 
 func (connected *Connected) SendDevices(raw_message []byte) {
@@ -64,28 +56,23 @@ func (connected *Connected) SendDevices(raw_message []byte) {
 	}
 	log.Println("Devices changed", deviceList)
 	// Make the status for each device
-	deviceStatus := make(map[string]interface{})
+	deviceStatus := make(map[string]bool)
 	for _, item := range deviceList {
 		currentDevice := map[string]interface{}{
+			"Method": "DeviceStatus",
 			"Device": item,
 			"Host":   connected.ClientId,
 			"Status": "Connected",
 		}
-		deviceStatus[item] = &currentDevice
+		connected.SendInterface(currentDevice)
+		deviceStatus[item] = true
 	}
 	// The message containing devices connect to the host
-	message := map[string]interface{}{
+	connected.SendInterface(map[string]interface{}{
 		"Method":  "Devices",
 		"Devices": deviceStatus,
 		"Name":    connected.ClientId,
-	}
-	// Turn the message into json bytes
-	messageBytes, err := json.Marshal(message)
-	if err != nil {
-		return
-	}
-	// Dump it to clients
-	connected.Write(messageBytes)
+	})
 }
 
 func (connected *Connected) WatchDeviceChange() {
