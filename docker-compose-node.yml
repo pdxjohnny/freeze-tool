@@ -2,6 +2,8 @@ connected:
   image: pdxjohnny/freeze-tool
   command: /freeze-tool/run connected
   privileged: true
+  volumes:
+    - "/dev/bus/usb:/dev/bus/usb"
   environment:
     - FREEZETOOL_HOST=10.23.232.146
   net: host
