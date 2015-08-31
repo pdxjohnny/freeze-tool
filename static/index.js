@@ -1,11 +1,4 @@
-api.Devices = function (data) {
-  console.log(data);
-  // Updates the status of all devices for one host
-  updateDeviceList(data["Devices"], data["Name"]);
-}
-
 api.DeviceStatus = function (data) {
-  console.log(data);
   // Updates the status of a single device
   updateDeviceDiv(data);
 }
@@ -17,7 +10,7 @@ api.Hostname = function (data) {
 
 api.Closed = function (data) {
   // Mark all of the devices for this host as disconnected
-  updateDeviceList([], data["Name"]);
+  hostDisconnected(data["Name"]);
 }
 
 // References to all of the divs that respresent devices
@@ -45,13 +38,12 @@ function getHostnames() {
   });
 }
 
-function updateDeviceList(deviceList, host) {
+function hostDisconnected(host) {
   // Go through all the devices
   for (var div in deviceDivs) {
     // If the divs host is the same as the host that
     // just sent the message
-    if (deviceDivs[div].host === hosts.get(host) &&
-      typeof deviceList[div] === "undefined") {
+    if (deviceDivs[div].host === hosts.get(host)) {
       // Change the status to the disconnected message
       deviceDivs[div].status = "Disconnected";
     }

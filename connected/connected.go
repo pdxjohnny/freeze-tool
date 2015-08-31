@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/andreaskoch/go-fswatch"
+	string_array "github.com/pdxjohnny/strings"
 	"github.com/pdxjohnny/microsocket/service"
 
 	"github.com/pdxjohnny/freeze-tool/adb"
@@ -15,6 +16,7 @@ import (
 type Connected struct {
 	*service.Service
 	Hostname string
+	OldDeviceList map[string]bool
 }
 
 func NewConnected() *Connected {
@@ -23,6 +25,7 @@ func NewConnected() *Connected {
 	connected := Connected{Service: inner}
 	connected.Caller = &connected
 	connected.Hostname, _ = os.Hostname()
+	connected.OldDeviceList = make(map[string]bool)
 	return &connected
 }
 
@@ -54,9 +57,8 @@ func (connected *Connected) SendDevices(raw_message []byte) {
 	if err != nil {
 		return
 	}
+	connected.CheckOldDevices(deviceList)
 	log.Println("Devices changed", deviceList)
-	// Make the status for each device
-	deviceStatus := make(map[string]bool)
 	for _, item := range deviceList {
 		currentDevice := map[string]interface{}{
 			"Method": "DeviceStatus",
@@ -65,14 +67,7 @@ func (connected *Connected) SendDevices(raw_message []byte) {
 			"Status": "Connected",
 		}
 		connected.SendInterface(currentDevice)
-		deviceStatus[item] = true
 	}
-	// The message containing devices connect to the host
-	connected.SendInterface(map[string]interface{}{
-		"Method":  "Devices",
-		"Devices": deviceStatus,
-		"Name":    connected.ClientId,
-	})
 }
 
 func (connected *Connected) WatchDeviceChange() {
@@ -94,6 +89,27 @@ func (connected *Connected) WatchDeviceChange() {
 		select {
 		case <-folderWatcher.Modified():
 			connected.SendDevices(nil)
+		}
+	}
+}
+
+func (connected *Connected) CheckOldDevices(deviceList []string) {
+	for item, _ := range connected.OldDeviceList {
+		if !string_array.Contains(deviceList, item) {
+			currentDevice := map[string]interface{}{
+				"Method": "DeviceStatus",
+				"Device": item,
+				"Host":   connected.ClientId,
+				"Status": "Disconnected",
+			}
+			connected.SendInterface(currentDevice)
+			delete(connected.OldDeviceList, item)
+		}
+	}
+	for _, item := range deviceList {
+		_, ok := connected.OldDeviceList[item]
+		if !ok {
+			connected.OldDeviceList[item] = true
 		}
 	}
 }
