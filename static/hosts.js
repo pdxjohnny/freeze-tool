@@ -3,6 +3,7 @@
 class HostNames {
   constructor() {
     this.nameMap = {};
+    this.changeDivs = {};
     return this;
   }
   get(name) {
@@ -17,8 +18,8 @@ class HostNames {
   }
   updateDeviceDivs() {
     // Go through all the devices
-    for (var div in deviceDivs) {
-      deviceDivs[div].host = this.get(deviceDivs[div].host);
+    for (var div in this.changeDivs) {
+      this.changeDivs[div].host = this.get(this.changeDivs[div].host);
     }
   }
 }

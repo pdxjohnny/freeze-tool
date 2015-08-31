@@ -52,23 +52,27 @@
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/microsocket/client",
-			"Rev": "d46dd61d21595200ac43e89bc7771f3105b80c1b"
+			"Rev": "7934a9935d038c4abdc498ff53672371aedccfdf"
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/microsocket/config",
-			"Rev": "d46dd61d21595200ac43e89bc7771f3105b80c1b"
+			"Rev": "7934a9935d038c4abdc498ff53672371aedccfdf"
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/microsocket/random",
-			"Rev": "d46dd61d21595200ac43e89bc7771f3105b80c1b"
+			"Rev": "7934a9935d038c4abdc498ff53672371aedccfdf"
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/microsocket/server",
-			"Rev": "d46dd61d21595200ac43e89bc7771f3105b80c1b"
+			"Rev": "7934a9935d038c4abdc498ff53672371aedccfdf"
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/microsocket/service",
-			"Rev": "d46dd61d21595200ac43e89bc7771f3105b80c1b"
+			"Rev": "7934a9935d038c4abdc498ff53672371aedccfdf"
+		},
+		{
+			"ImportPath": "github.com/pdxjohnny/strings",
+			"Rev": "780316c79ccf63abf1d2a8cbfb491e77091558e9"
 		},
 		{
 			"ImportPath": "github.com/russross/blackfriday",

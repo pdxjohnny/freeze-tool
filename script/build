@@ -15,7 +15,8 @@ in_path () {
 }
 
 if [ -z "$1" ]; then
-    OS_PLATFORM_ARG=(-os="darwin linux windows")
+    # OS_PLATFORM_ARG=(-os="darwin linux windows")
+    OS_PLATFORM_ARG=(-os="linux")
 else
     OS_PLATFORM_ARG=($1)
 fi
