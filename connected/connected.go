@@ -7,15 +7,15 @@ import (
 	"strings"
 
 	"github.com/andreaskoch/go-fswatch"
-	string_array "github.com/pdxjohnny/strings"
 	"github.com/pdxjohnny/microsocket/service"
+	string_array "github.com/pdxjohnny/strings"
 
 	"github.com/pdxjohnny/freeze-tool/adb"
 )
 
 type Connected struct {
 	*service.Service
-	Hostname string
+	Hostname      string
 	OldDeviceList map[string]bool
 }
 

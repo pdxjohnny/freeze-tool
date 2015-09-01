@@ -1,5 +1,5 @@
 api.DeviceHistory = function (data) {
-  if (HistoryKey === data["HistoryKey"]) {
+  if (DumpKey === data["DumpKey"]) {
     // Adds a status to the history of the device
     addStatus(data);
   }
@@ -20,12 +20,12 @@ api.DeviceStatus = function (data) {
 }
 
 api.SendDeviceHistoryConfirm = function (data) {
-  if (HistoryKey == false) {
-    HistoryKey = String(Math.random());
+  if (DumpAccepted == false) {
+    DumpAccepted = true;
     api.send({
       "Method": "SendDeviceHistoryConfirmed",
-      "CleintId": data["ClientId"],
-      "HistoryKey": HistoryKey
+      "ClientId": data["ClientId"],
+      "DumpKey": data["DumpKey"]
     });
   }
 }
@@ -33,7 +33,9 @@ api.SendDeviceHistoryConfirm = function (data) {
 // The device were getting the history of
 var deviceName = location.hash.slice(1);
 // So we know what history dump to accept
-var HistoryKey = false;
+var DumpKey = false;
+// So we no only to accept one history dump
+var DumpAccepted = false;
 // The last status sent so there are no duplicates
 var lastStatus = "";
 
@@ -46,8 +48,11 @@ $(function () {
 
 // Request updated device list
 function getDeviceHistory() {
+  DumpKey = String(Math.random());
   api.send({
-    "Method": "SendDeviceHistory"
+    "Method": "SendDeviceHistory",
+    "DumpKey": DumpKey,
+    "Device": deviceName
   });
 }
 
