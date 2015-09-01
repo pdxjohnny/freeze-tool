@@ -1,4 +1,4 @@
-package main
+package web
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func Web() error {
+func Run() error {
 	go server.Hub.Run()
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/", fs)
