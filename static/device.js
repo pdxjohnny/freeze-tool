@@ -26,7 +26,7 @@ var Device = function Device(name) {
   Object.defineProperty(div, "device", {
     set: function (name) {
       this.device_name = name;
-      this.device_div.innerHTML = name;
+      this.device_div.innerHTML = this.historyLink(name);
       return this.device_div;
     },
     get: function (name) {
@@ -69,4 +69,8 @@ Device.prototype.update = function (object) {
     }
     this[prop.toLowerCase()] = object[prop];
   }
+}
+
+Device.prototype.historyLink = function (name) {
+  return "<a href=\"history.html#" + name + "\">" + name + "</a>";
 }

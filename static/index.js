@@ -19,7 +19,7 @@ $(function () {
 // Request updated device list
 function getDevices() {
   api.send({
-    "Method": "SendDevices"
+    "Method": "LastDeviceStatuses"
   });
 }
 
@@ -30,7 +30,7 @@ function hostDisconnected(host) {
     // just sent the message
     if (hosts.changeDivs[div].host === hosts.get(host)) {
       // Change the status to the disconnected message
-      hosts.changeDivs[div].status = "Disconnected";
+      hosts.changeDivs[div].status = "Host Disconnected";
     }
   }
 }

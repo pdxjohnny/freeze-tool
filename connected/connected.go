@@ -61,7 +61,7 @@ func (connected *Connected) SendDevices(raw_message []byte) {
 	log.Println("Devices changed", deviceList)
 	for _, item := range deviceList {
 		currentDevice := map[string]interface{}{
-			"Method": "DeviceStatus",
+			"Method": "DeviceStatusUpdate",
 			"Device": item,
 			"Host":   connected.ClientId,
 			"Status": "Connected",
@@ -97,7 +97,7 @@ func (connected *Connected) CheckOldDevices(deviceList []string) {
 	for item, _ := range connected.OldDeviceList {
 		if !string_array.Contains(deviceList, item) {
 			currentDevice := map[string]interface{}{
-				"Method": "DeviceStatus",
+				"Method": "DeviceStatusUpdate",
 				"Device": item,
 				"Host":   connected.ClientId,
 				"Status": "Disconnected",
