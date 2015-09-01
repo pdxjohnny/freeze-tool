@@ -52,23 +52,23 @@
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/microsocket/client",
-			"Rev": "7934a9935d038c4abdc498ff53672371aedccfdf"
+			"Rev": "3b48e54bb1af6e7459ff9405c19c977bc32cbfad"
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/microsocket/config",
-			"Rev": "7934a9935d038c4abdc498ff53672371aedccfdf"
+			"Rev": "3b48e54bb1af6e7459ff9405c19c977bc32cbfad"
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/microsocket/random",
-			"Rev": "7934a9935d038c4abdc498ff53672371aedccfdf"
+			"Rev": "3b48e54bb1af6e7459ff9405c19c977bc32cbfad"
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/microsocket/server",
-			"Rev": "7934a9935d038c4abdc498ff53672371aedccfdf"
+			"Rev": "3b48e54bb1af6e7459ff9405c19c977bc32cbfad"
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/microsocket/service",
-			"Rev": "7934a9935d038c4abdc498ff53672371aedccfdf"
+			"Rev": "3b48e54bb1af6e7459ff9405c19c977bc32cbfad"
 		},
 		{
 			"ImportPath": "github.com/pdxjohnny/strings",
