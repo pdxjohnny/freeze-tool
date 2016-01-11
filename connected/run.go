@@ -8,13 +8,13 @@ import (
 )
 
 func Run() error {
-	wsUrl := fmt.Sprintf("http://%s:%d/ws",
+	wsURL := fmt.Sprintf("ws://%s:%d/ws",
 		viper.GetString("host"),
 		viper.GetInt("port"),
 	)
 	connected := NewConnected()
-	log.Println("Connecting to", wsUrl)
-	err := connected.Connect(wsUrl)
+	log.Println("Connecting to", wsURL)
+	err := connected.Connect(wsURL)
 	if err != nil {
 		log.Println(err)
 	}

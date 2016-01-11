@@ -3,22 +3,23 @@ package connected
 import (
 	"log"
 	"os"
-	"path/filepath"
-	"strings"
+	"time"
 
-	"github.com/andreaskoch/go-fswatch"
 	"github.com/pdxjohnny/microsocket/service"
-	string_array "github.com/pdxjohnny/strings"
+	stringArray "github.com/pdxjohnny/strings"
+	"github.com/rjeczalik/notify"
 
 	"github.com/pdxjohnny/freeze-tool/adb"
 )
 
+// Connected is a service which keeps teh connected devices updated
 type Connected struct {
 	*service.Service
 	Hostname      string
 	OldDeviceList map[string]bool
 }
 
+// NewConnected creates a new connected service
 func NewConnected() *Connected {
 	// Service setup
 	inner := service.NewService()
@@ -29,6 +30,7 @@ func NewConnected() *Connected {
 	return &connected
 }
 
+// Run starts the connected service
 func (connected *Connected) Run() error {
 	go connected.Read()
 	log.Println("Waiting for ready")
@@ -42,7 +44,9 @@ func (connected *Connected) Run() error {
 	return nil
 }
 
-func (connected *Connected) SendHostname(raw_message []byte) {
+// SendHostname sends this computers hostname so its id can be
+// associated with it
+func (connected *Connected) SendHostname(rawMessage []byte) {
 	// The message containing devices connect to the host
 	connected.SendInterface(map[string]interface{}{
 		"Method": "Hostname",
@@ -51,7 +55,9 @@ func (connected *Connected) SendHostname(raw_message []byte) {
 	})
 }
 
-func (connected *Connected) SendDevices(raw_message []byte) {
+// SendDevices sends the list of connected devices via adb
+func (connected *Connected) SendDevices(rawMessage []byte) {
+	log.Println("SendDevices")
 	// Get the connected devices
 	deviceList, err := adb.Devices()
 	if err != nil {
@@ -70,32 +76,35 @@ func (connected *Connected) SendDevices(raw_message []byte) {
 	}
 }
 
+// WatchDeviceChange starts a file system watcher to watch for
+// usb device changes
 func (connected *Connected) WatchDeviceChange() {
-	recurse := true
-	skipDotFilesAndFolders := func(path string) bool {
-		return strings.HasPrefix(filepath.Base(path), ".")
+	// Make the channel buffered to ensure no event is dropped. Notify will drop
+	// an event if the receiver is not able to keep up the sending pace.
+	c := make(chan notify.EventInfo, 1)
+	defer notify.Stop(c)
+
+	// Set up a watchpoint listening for events within a directory tree rooted
+	// at current working directory. Dispatch remove events to c.
+	err := notify.Watch("/dev/bus/usb/...", c, notify.Create, notify.Remove)
+	if err != nil {
+		log.Fatal(err)
 	}
-	checkIntervalInSeconds := 1
 
-	folderWatcher := fswatch.NewFolderWatcher(
-		"/dev/bus/usb",
-		recurse,
-		skipDotFilesAndFolders,
-		checkIntervalInSeconds,
-	)
-	folderWatcher.Start()
-
-	for folderWatcher.IsRunning() {
+	for {
 		select {
-		case <-folderWatcher.Modified():
+		case event := <-c:
+			log.Println(event)
+			time.Sleep(750 * time.Millisecond)
 			connected.SendDevices(nil)
 		}
 	}
 }
 
+// CheckOldDevices lets us knwo if any devices have been disconnected
 func (connected *Connected) CheckOldDevices(deviceList []string) {
-	for item, _ := range connected.OldDeviceList {
-		if !string_array.Contains(deviceList, item) {
+	for item := range connected.OldDeviceList {
+		if !stringArray.Contains(deviceList, item) {
 			currentDevice := map[string]interface{}{
 				"Method": "DeviceStatusUpdate",
 				"Device": item,

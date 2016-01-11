@@ -8,7 +8,7 @@ import (
 )
 
 func Run() error {
-	wsUrl := fmt.Sprintf("http://%s:%d/ws",
+	wsUrl := fmt.Sprintf("ws://%s:%d/ws",
 		viper.GetString("host"),
 		viper.GetInt("port"),
 	)
