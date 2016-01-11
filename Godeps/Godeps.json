@@ -1,6 +1,6 @@
 {
 	"ImportPath": "github.com/pdxjohnny/freeze-tool",
-	"GoVersion": "go1.5",
+	"GoVersion": "go1.5.2",
 	"Packages": [
 		"./..."
 	],
@@ -11,18 +11,13 @@
 			"Rev": "056c9bc7be7190eaa7715723883caffa5f8fa3e4"
 		},
 		{
-			"ImportPath": "github.com/andreaskoch/go-fswatch",
-			"Comment": "v1.0.0-1-gecea476",
-			"Rev": "ecea47604a702853c881a7dd161fead47ce8467f"
-		},
-		{
 			"ImportPath": "github.com/cpuguy83/go-md2man/md2man",
-			"Comment": "v1.0.3-2-g71acacd",
+			"Comment": "v1.0.4",
 			"Rev": "71acacd42f85e5e82f70a55327789582a5200a90"
 		},
 		{
 			"ImportPath": "github.com/gorilla/websocket",
-			"Rev": "6eb6ad425a89d9da7a5549bc6da8f79ba5c17844"
+			"Rev": "3986be78bf859e01f01af631ad76da5b269d270c"
 		},
 		{
 			"ImportPath": "github.com/inconshreveable/mousetrap",
@@ -35,12 +30,12 @@
 		},
 		{
 			"ImportPath": "github.com/kr/text",
-			"Rev": "e373e137fafd8abd480af49182dea0513914adb4"
+			"Rev": "bb797dc4fb8320488f47bf11de07a733d7233e1f"
 		},
 		{
 			"ImportPath": "github.com/magiconair/properties",
-			"Comment": "v1.5.5",
-			"Rev": "337395e44efb4affc8bf11971e22acbd4e27a32d"
+			"Comment": "v1.5.4-11-g23b847e",
+			"Rev": "23b847ebbbdaada7234bf4b3da1e50e601fbf63b"
 		},
 		{
 			"ImportPath": "github.com/mitchellh/mapstructure",
@@ -75,13 +70,17 @@
 			"Rev": "780316c79ccf63abf1d2a8cbfb491e77091558e9"
 		},
 		{
+			"ImportPath": "github.com/rjeczalik/notify",
+			"Rev": "efbcb15a545abd0c7d546f0a15f4115c713a4c59"
+		},
+		{
 			"ImportPath": "github.com/russross/blackfriday",
-			"Comment": "v1.2-80-g8cec3a8",
-			"Rev": "8cec3a854e68dba10faabbe31c089abf4a3e57a6"
+			"Comment": "v1.4-8-ge3cbadc",
+			"Rev": "e3cbadc5c960894017d53ecf49dba4c361dacddf"
 		},
 		{
 			"ImportPath": "github.com/shurcooL/sanitized_anchor_name",
-			"Rev": "11a20b799bf22a02808c862eb6ca09f7fb38f84a"
+			"Rev": "10ef21a441db47d8b13ebcc5fd2310f636973c77"
 		},
 		{
 			"ImportPath": "github.com/spf13/cast",
@@ -89,23 +88,28 @@
 		},
 		{
 			"ImportPath": "github.com/spf13/cobra",
-			"Rev": "e4993076d845b7127c760e2e57a4984c166c6c05"
+			"Rev": "29cddf65b2e18b9c2339f8b659f38fbefe8b98ea"
 		},
 		{
 			"ImportPath": "github.com/spf13/jwalterweatherman",
-			"Rev": "3d60171a64319ef63c78bd45bd60e6eab1e75f8b"
+			"Rev": "c2aa07df593850a04644d77bb757d002e517a296"
 		},
 		{
 			"ImportPath": "github.com/spf13/pflag",
-			"Rev": "8e7dc108ab3a1ab6ce6d922bbaff5657b88e8e49"
+			"Rev": "08b1a584251b5b62f458943640fc8ebd4d50aaa5"
 		},
 		{
 			"ImportPath": "github.com/spf13/viper",
-			"Rev": "3c0ff861e3d9906ecc4ebfb7e41557d44d3e277b"
+			"Rev": "e37b56e207dda4d79b9defe0548e960658ee8b6b"
+		},
+		{
+			"ImportPath": "gopkg.in/fsnotify.v1",
+			"Comment": "v1.2.5",
+			"Rev": "2cdd39bd6129c6a49c74fb07fb9d77ba1271c572"
 		},
 		{
 			"ImportPath": "gopkg.in/yaml.v2",
-			"Rev": "7ad95dd0798a40da1ccdff6dff35fd177b5edf40"
+			"Rev": "f7716cbe52baa25d2e9b0d0da546fcf909fc16b4"
 		}
 	]
 }

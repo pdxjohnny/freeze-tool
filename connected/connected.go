@@ -95,8 +95,10 @@ func (connected *Connected) WatchDeviceChange() {
 		select {
 		case event := <-c:
 			log.Println(event)
-			time.Sleep(750 * time.Millisecond)
-			connected.SendDevices(nil)
+			go func() {
+				time.Sleep(1500 * time.Millisecond)
+				connected.SendDevices(nil)
+			}()
 		}
 	}
 }

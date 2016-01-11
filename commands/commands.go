@@ -3,9 +3,9 @@ package commands
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/pdxjohnny/freeze-tool/web"
-	"github.com/pdxjohnny/freeze-tool/history"
 	"github.com/pdxjohnny/freeze-tool/connected"
+	"github.com/pdxjohnny/freeze-tool/history"
+	"github.com/pdxjohnny/freeze-tool/web"
 )
 
 var Commands = []*cobra.Command{

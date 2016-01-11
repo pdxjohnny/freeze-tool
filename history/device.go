@@ -1,8 +1,8 @@
 package history
 
 import (
-	"time"
 	"encoding/json"
+	"time"
 )
 
 // Dump history of device

@@ -1,9 +1,6 @@
-connected:
+history:
   image: pdxjohnny/freeze-tool
-  command: /freeze-tool/run connected
-  privileged: true
-  volumes:
-    - "/dev/bus/usb:/dev/bus/usb"
+  command: /freeze-tool/run history
   environment:
     - FREEZETOOL_HOST=web
   links:
