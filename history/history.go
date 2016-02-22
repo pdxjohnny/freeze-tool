@@ -6,12 +6,20 @@ import (
 	"github.com/pdxjohnny/microsocket/service"
 )
 
+const (
+	DefaultMaxLength = 20
+)
+
 type DeviceMessage struct {
 	Device string
 }
 
 type Historian struct {
 	*service.Service
+	// MaxLength is the length of history each device will store
+	// This prevents using to much memory storing device connected
+	// device disconnected a million times
+	MaxLength int
 	// History of status updates for each device
 	Past map[string][]string
 	// Keep track of if we should dump or not
@@ -21,12 +29,15 @@ type Historian struct {
 func NewHistorian() *Historian {
 	// Service setup
 	inner := service.NewService()
-	history := Historian{Service: inner}
+	history := Historian{
+		Service:   inner,
+		MaxLength: DefaultMaxLength,
+		// Init Past map
+		Past: make(map[string][]string),
+		// Init DumpTrack map
+		DumpTrack: make(map[string]chan bool),
+	}
 	history.Caller = &history
-	// Init Past map
-	history.Past = make(map[string][]string)
-	// Init DumpTrack map
-	history.DumpTrack = make(map[string]chan bool)
 	return &history
 }
 

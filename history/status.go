@@ -38,6 +38,13 @@ func (history *Historian) DeviceStatusUpdate(raw_message []byte) {
 	if newStatus {
 		log.Println(deviceName, "was updated")
 		history.Past[deviceName] = append(history.Past[deviceName], string_message)
+		// If the history of this device is too long then delete the history up
+		// to a point
+		if len(history.Past[deviceName]) > history.MaxLength {
+			numToRemove := len(history.Past[deviceName]) - history.MaxLength
+			history.Past[deviceName] = history.Past[deviceName][numToRemove:]
+			log.Println("Removed", numToRemove, "event(s) from", deviceName, "history")
+		}
 		// Send this because it is the new status of the device
 		history.SendDeviceStatus(deviceName)
 	}
