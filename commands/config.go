@@ -6,17 +6,29 @@ import (
 )
 
 var ConfigOptions = map[string]interface{}{
+	"hport": map[string]interface{}{
+		"value": 7777,
+		"help":  "Port to host on",
+	},
 	"port": map[string]interface{}{
 		"value": 7777,
-		"help":  "",
+		"help":  "Port to connect to",
 	},
 	"host": map[string]interface{}{
 		"value": "localhost",
-		"help":  "",
+		"help":  "Service host to connect websocket to",
 	},
 	"address": map[string]interface{}{
 		"value": "0.0.0.0",
-		"help":  "",
+		"help":  "Address to host on",
+	},
+	"device": map[string]interface{}{
+		"value": "",
+		"help":  "Device id",
+	},
+	"logdir": map[string]interface{}{
+		"value": "tmp",
+		"help":  "Directory to store logs in",
 	},
 }
 

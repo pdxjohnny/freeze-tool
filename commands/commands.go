@@ -5,6 +5,7 @@ import (
 
 	"github.com/pdxjohnny/freeze-tool/connected"
 	"github.com/pdxjohnny/freeze-tool/history"
+	"github.com/pdxjohnny/freeze-tool/logger"
 	"github.com/pdxjohnny/freeze-tool/web"
 )
 
@@ -31,6 +32,14 @@ var Commands = []*cobra.Command{
 		Run: func(cmd *cobra.Command, args []string) {
 			ConfigBindFlags(cmd)
 			history.Run()
+		},
+	},
+	&cobra.Command{
+		Use:   "logger",
+		Short: "Streams device logs",
+		Run: func(cmd *cobra.Command, args []string) {
+			ConfigBindFlags(cmd)
+			logger.Run()
 		},
 	},
 }

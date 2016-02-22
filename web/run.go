@@ -14,7 +14,7 @@ func Run() error {
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/", fs)
 	http.HandleFunc("/ws", server.Hub.ServeWs)
-	port := fmt.Sprintf(":%d", viper.GetInt("port"))
+	port := fmt.Sprintf(":%d", viper.GetInt("hport"))
 	log.Println("Serving on", port)
 	err := http.ListenAndServe(port, nil)
 	if err != nil {
