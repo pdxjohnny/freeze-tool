@@ -4,6 +4,7 @@ var make_api = function () {
   this.sender = false;
   this.ws = false;
   this.name = false;
+  this.debug = false;
   // Set the default server
   this.change_server(location.origin.split("//")[1]);
   // Handlers for messages
@@ -33,6 +34,9 @@ make_api.prototype.onclose = function (data) {
 make_api.prototype.onmessage = function (data) {
   try {
     data = JSON.parse(data["data"])
+    if (this.debug === true) {
+      console.log(data);
+    }
   } catch (err) {
     console.error("Could not decode", data["data"]);
   }

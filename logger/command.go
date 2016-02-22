@@ -2,6 +2,7 @@ package logger
 
 import (
 	"log"
+	"os/exec"
 
 	"github.com/pdxjohnny/microsocket/service"
 )
@@ -9,23 +10,26 @@ import (
 type Command struct {
 	*service.Service
 	// Device is the device id we are connected to
-	Device string `json:"device"`
+	Device string `json:"Device"`
 	// Status lets clients know if the logging stream is active
-	Status string `json:"status"`
+	Status string `json:"Status"`
 	// Command we are running to collect logs (dmesg, logcat)
-	Command string `json:"command"`
+	Command string `json:"Command"`
 	// Method for when we send a status update. It will jsut send itself
-	Method string `json:"method"`
+	Method string `json:"Method"`
 	// File we are logging to and streaming from
 	File string `json:"-"`
+	// LogProcess is the adb process capturing log output
+	LogProcess *exec.Cmd `json:"-"`
 }
 
 func NewCommand() *Command {
 	// Service setup
 	inner := service.NewService()
 	command := Command{
-		Service: inner,
-		Method:  "DeviceStatusUpdate",
+		Service:    inner,
+		Method:     "DeviceStatusUpdate",
+		LogProcess: nil,
 	}
 	command.Caller = &command
 	return &command

@@ -10,6 +10,7 @@ import (
 	"github.com/rjeczalik/notify"
 
 	"github.com/pdxjohnny/freeze-tool/adb"
+	"github.com/pdxjohnny/freeze-tool/status"
 )
 
 // Connected is a service which keeps teh connected devices updated
@@ -70,7 +71,7 @@ func (connected *Connected) SendDevices(rawMessage []byte) {
 			"Method": "DeviceStatusUpdate",
 			"Device": item,
 			"Host":   connected.ClientId,
-			"Status": "Connected",
+			"Status": status.Connected,
 		}
 		connected.SendInterface(currentDevice)
 	}
@@ -111,7 +112,7 @@ func (connected *Connected) CheckOldDevices(deviceList []string) {
 				"Method": "DeviceStatusUpdate",
 				"Device": item,
 				"Host":   connected.ClientId,
-				"Status": "Disconnected",
+				"Status": status.Disconnected,
 			}
 			connected.SendInterface(currentDevice)
 			delete(connected.OldDeviceList, item)

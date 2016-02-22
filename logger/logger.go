@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"os/exec"
 	"path"
 
@@ -39,7 +40,7 @@ func (logger *Logger) Create() *http.ServeMux {
 
 	mux.Handle("/status/", logger.needCommand(http.HandlerFunc(logger.statusHandler)))
 	mux.Handle("/create/", logger.needCommand(http.HandlerFunc(logger.createHandler)))
-	mux.Handle("/log/", logger.needCommand(http.HandlerFunc(logger.logHandler)))
+	mux.Handle("/logger/", logger.needCommand(http.HandlerFunc(logger.loggerHandler)))
 
 	return mux
 }
@@ -117,11 +118,19 @@ func (logger *Logger) createHandler(w http.ResponseWriter, r *http.Request) {
 	command.Device = logger.Device
 	command.Status = status.LoggingCreated
 	command.Command = queryParams["command"][0]
-	command.File = path.Join(
+
+	// Create the log directory
+	dir := path.Join(
 		logger.LogDir,
 		command.Device,
-		command.Command,
-		".log",
+	)
+	// FIXME: Need reasonable permisions
+	os.MkdirAll(dir, 0777)
+
+	// Now the the file path is valid when we start to write to it
+	command.File = path.Join(
+		dir,
+		command.Command+".log",
 	)
 
 	// Format the ws server URL
@@ -140,6 +149,10 @@ func (logger *Logger) createHandler(w http.ResponseWriter, r *http.Request) {
 	command.SendInterface(command)
 	// Start the logger command it will now listen to events from the ws server
 	go command.Run()
+	// Send the current status of the logger
+	command.SendInterface(status.Generic{
+		Method: "LastDeviceStatuses",
+	})
 
 	// Add the command to the map of already running commands
 	logger.Commands[command.Command] = command
@@ -149,7 +162,7 @@ func (logger *Logger) createHandler(w http.ResponseWriter, r *http.Request) {
 	logger.Error(w, dump.Encode(command), http.StatusInternalServerError)
 }
 
-func (logger *Logger) logHandler(w http.ResponseWriter, r *http.Request) {
+func (logger *Logger) loggerHandler(w http.ResponseWriter, r *http.Request) {
 	u, err := url.Parse(r.URL.String())
 	if err != nil {
 		fmt.Fprintln(w, err.Error())
