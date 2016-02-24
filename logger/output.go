@@ -59,5 +59,6 @@ func (output *Output) Kill() error {
 	if err != nil {
 		log.Println(err)
 	}
-	return output.Cmd.Process.Kill()
+	output.Cmd.Process.Kill()
+	return output.Cmd.Wait()
 }

@@ -189,7 +189,19 @@ func (logger *Logger) loggerHandler(w http.ResponseWriter, r *http.Request) {
 	)
 	cmd.Stdout = &fw
 	cmd.Stderr = &fw
-	cmd.Run()
+
+	cn, ok := w.(http.CloseNotifier)
+	if !ok {
+		err := errors.New("Cannot stream")
+		logger.Error(w, err, http.StatusInternalServerError)
+		return
+	}
+
+	cmd.Start()
+
+	<-cn.CloseNotify()
+	cmd.Process.Kill()
+	cmd.Wait()
 }
 
 func (logger *Logger) Error(w http.ResponseWriter, err error, status int) {
