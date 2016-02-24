@@ -24,6 +24,6 @@ All API requests must have the variable `command` set.
 For example `http://url/&command=_self`. `_self` is the command to use when you
 want to talk to the logger server and not the commands that it is running.
 
-* GET /status
-* GET /create
-* GET /logger
+* GET /status/?
+* GET /create/?
+* GET /logger/?

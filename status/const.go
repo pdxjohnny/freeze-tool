@@ -9,5 +9,5 @@ const (
 	LoggingCreated = "logging_created"
 	Logging        = "logging"
 	NotLogging     = "not_logging"
-	ErrorLogging   = "error_logging"
+	LoggingError   = "error_logging"
 )

@@ -1,7 +1,6 @@
 package logger
 
 import (
-	"fmt"
 	"log"
 	"os/exec"
 
@@ -24,17 +23,17 @@ func (command *Command) DeviceStatus(raw_message []byte) {
 		return
 	}
 
-	log.Println("Got an update to device", command.Device, deviceStatus)
+	log.Println("deviceStatus:", deviceStatus)
 
 	// Take action based on the status of the device we are monitoring
 	switch deviceStatus {
-	case status.Disconnected, status.NotLogging, status.ErrorLogging:
+	case status.Disconnected, status.NotLogging, status.LoggingError:
 		// If the device is no longer connected then stop logging
 		// Also if there was an error logging or if we dont want to log
 		if command.LogProcess == nil {
 			return
 		}
-		err := command.LogProcess.Process.Kill()
+		err := command.LogProcess.Kill()
 		if err != nil {
 			log.Println("Error killing logging process:", err)
 		}
@@ -48,22 +47,28 @@ func (command *Command) DeviceStatus(raw_message []byte) {
 		if command.LogProcess != nil {
 			return
 		}
-		pipeCommand := fmt.Sprintf(
-			"adb -s %s %s &>%s",
+
+		cmd := exec.Command(
+			"adb",
+			"-s",
 			command.Device,
 			command.Command,
-			command.File,
 		)
-		log.Println(pipeCommand)
-		command.LogProcess = exec.Command(
-			"bash",
-			"-c",
-			pipeCommand,
-		)
-		command.LogProcess.Start()
+		command.LogProcess = &Output{
+			Cmd:  cmd,
+			File: command.File,
+		}
+		err := command.LogProcess.Start()
+		if err != nil {
+			command.Status = status.LoggingError
+			command.Message = err.Error()
+			command.SendInterface(command)
+			return
+		}
 
 		// Send the current status of the logger
 		command.Status = status.Logging
 		command.SendInterface(command)
+		return
 	}
 }

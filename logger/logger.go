@@ -184,7 +184,7 @@ func (logger *Logger) loggerHandler(w http.ResponseWriter, r *http.Request) {
 
 	cmd := exec.Command(
 		"tail",
-		"-f",
+		"-99999f",
 		command.File,
 	)
 	cmd.Stdout = &fw
