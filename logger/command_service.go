@@ -28,7 +28,23 @@ func (command *Command) DeviceStatus(raw_message []byte) {
 
 	// Take action based on the status of the device we are monitoring
 	switch deviceStatus {
-	case status.Connected, status.LoggingCreated:
+	case status.Disconnected, status.NotLogging, status.ErrorLogging:
+		// If the device is no longer connected then stop logging
+		// Also if there was an error logging or if we dont want to log
+		if command.LogProcess == nil {
+			return
+		}
+		err := command.LogProcess.Process.Kill()
+		if err != nil {
+			log.Println("Error killing logging process:", err)
+		}
+		command.LogProcess = nil
+
+		// Send the current status of the logger
+		command.Status = status.NotLogging
+		command.SendInterface(command)
+	default:
+		// So long as the device was not just disconnected we should be logging
 		if command.LogProcess != nil {
 			return
 		}
@@ -49,12 +65,5 @@ func (command *Command) DeviceStatus(raw_message []byte) {
 		// Send the current status of the logger
 		command.Status = status.Logging
 		command.SendInterface(command)
-	case status.Disconnected:
-		if command.LogProcess == nil {
-			return
-		}
-		err := command.LogProcess.Process.Kill()
-		log.Println(err)
-		command.LogProcess = nil
 	}
 }
